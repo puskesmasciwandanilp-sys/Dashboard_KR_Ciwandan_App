@@ -1,0 +1,19 @@
+# Custom domain for GitHub Pages (OPTIONAL)
+# 
+# Jika Anda ingin menggunakan domain kustom:
+# 1. Uncomment baris di bawah dan ganti dengan domain Anda
+# 2. Setup DNS di domain provider Anda:
+#    - Untuk apex domain (example.com):
+#      A record pointing to 185.199.108.153
+#      A record pointing to 185.199.109.153
+#      A record pointing to 185.199.110.153
+#      A record pointing to 185.199.111.153
+#    - Untuk subdomain (app.example.com):
+#      CNAME record pointing to YOUR_USERNAME.github.io
+#
+# Contoh:
+# dashboard.pkmciwandan.id
+#
+# CATATAN: Hapus semua komentar dan sisakan hanya domain jika digunakan
+# File ini harus berisi HANYA nama domain, tanpa komentar
+

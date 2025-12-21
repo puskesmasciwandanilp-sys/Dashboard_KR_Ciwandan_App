@@ -1,0 +1,9 @@
+# robots.txt for PKM Ciwandan PWA
+# Allow all crawlers
+
+User-agent: *
+Allow: /
+
+# Sitemap (optional - uncomment if you have one)
+# Sitemap: https://YOUR_USERNAME.github.io/pkm-ciwandan-app/sitemap.xml
+
