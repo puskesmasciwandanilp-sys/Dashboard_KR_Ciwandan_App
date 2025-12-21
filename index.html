@@ -665,14 +665,56 @@
     function handleURLParams() {
       const params = new URLSearchParams(window.location.search);
       const view = params.get('view');
+      const loc = params.get('loc');
       
+      let currentSrc = appFrame.src;
+      let hasParams = currentSrc.includes('?');
+      
+      // Handle location parameter (for Pustu navigation)
+      if (loc) {
+        const separator = hasParams ? '&' : '?';
+        currentSrc = CONFIG.GAS_URL + separator + 'loc=' + encodeURIComponent(loc);
+        hasParams = true;
+        appFrame.src = currentSrc;
+        console.log('[App] Loading location:', loc);
+      }
+      
+      // Handle view parameter
       if (view) {
-        // Pass view parameter to iframe
-        const currentSrc = appFrame.src;
-        const separator = currentSrc.includes('?') ? '&' : '?';
+        const separator = hasParams ? '&' : '?';
         appFrame.src = currentSrc + separator + 'view=' + view;
       }
     }
+    
+    // ============================================
+    // PWA NAVIGATION HANDLER (for Pustu navigation)
+    // ============================================
+    
+    window.addEventListener('message', function(event) {
+      // Handle navigation messages from GAS iframe
+      if (event.data && event.data.type === 'pwa-navigate') {
+        console.log('[App] PWA Navigate:', event.data);
+        
+        var locationId = event.data.location;
+        var url = event.data.url;
+        
+        if (url && appFrame) {
+          // Show loading indicator
+          updateStatus('Memuat ' + locationId + '...');
+          document.getElementById('loadingScreen').style.display = 'flex';
+          document.getElementById('loadingScreen').classList.remove('hidden');
+          
+          // Update iframe src
+          appFrame.src = url;
+          
+          // Update browser URL without reload (for bookmarking)
+          if (window.history && window.history.replaceState) {
+            var newUrl = window.location.pathname + '?loc=' + encodeURIComponent(locationId);
+            window.history.replaceState({location: locationId}, '', newUrl);
+          }
+        }
+      }
+    });
     
     // ============================================
     // INITIALIZATION
