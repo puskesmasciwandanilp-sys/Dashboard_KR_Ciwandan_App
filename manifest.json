@@ -13,80 +13,70 @@
   "dir": "ltr",
   "icons": [
     {
-      "src": "icons/icon-72x72.png",
+      "src": "icons/CIwandan/android/android-launchericon-48-48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/CIwandan/android/android-launchericon-72-72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-96x96.png",
+      "src": "icons/CIwandan/android/android-launchericon-96-96.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-128x128.png",
+      "src": "icons/CIwandan/ios/128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-144x144.png",
+      "src": "icons/CIwandan/android/android-launchericon-144-144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-152x152.png",
+      "src": "icons/CIwandan/ios/152.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-192x192.png",
+      "src": "icons/CIwandan/android/android-launchericon-192-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-384x384.png",
-      "sizes": "384x384",
+      "src": "icons/CIwandan/ios/256.png",
+      "sizes": "256x256",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-512x512.png",
+      "src": "icons/CIwandan/android/android-launchericon-512-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-maskable-192x192.png",
+      "src": "icons/CIwandan/android/android-launchericon-192-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "icons/icon-maskable-512x512.png",
+      "src": "icons/CIwandan/android/android-launchericon-512-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshots/desktop-dashboard.png",
-      "sizes": "1920x1080",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Dashboard Desktop View"
-    },
-    {
-      "src": "screenshots/mobile-dashboard.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Dashboard Mobile View"
     }
   ],
   "shortcuts": [
@@ -95,14 +85,14 @@
       "short_name": "Dashboard",
       "description": "Buka dashboard utama",
       "url": "./?view=dashboard",
-      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "icons/CIwandan/android/android-launchericon-96-96.png", "sizes": "96x96" }]
     },
     {
       "name": "Chat dengan Nano",
       "short_name": "Chatbot",
       "description": "Buka asisten AI Nano",
       "url": "./?view=chat",
-      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "icons/CIwandan/android/android-launchericon-96-96.png", "sizes": "96x96" }]
     }
   ],
   "related_applications": [],
@@ -112,4 +102,3 @@
     "client_mode": "navigate-existing"
   }
 }
-
