@@ -17,8 +17,8 @@ const SHELL_ASSETS = [
   './index.html',
   './offline.html',
   './manifest.json',
-  './icons/icon-192x192.png',
-  './icons/icon-512x512.png'
+  './icons/CIwandan/android/android-launchericon-192-192.png',
+  './icons/CIwandan/android/android-launchericon-512-512.png'
 ];
 
 // CDN resources to cache (stale-while-revalidate)
@@ -251,8 +251,8 @@ self.addEventListener('push', (event) => {
   
   const options = {
     body: event.data ? event.data.text() : 'Ada update data kesehatan baru!',
-    icon: './icons/icon-192x192.png',
-    badge: './icons/icon-72x72.png',
+    icon: './icons/CIwandan/android/android-launchericon-192-192.png',
+    badge: './icons/CIwandan/android/android-launchericon-72-72.png',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
