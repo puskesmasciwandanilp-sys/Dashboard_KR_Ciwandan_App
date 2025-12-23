@@ -211,16 +211,18 @@
       color: var(--text-secondary);
     }
     
-    /* App Frame - Full viewport untuk menghindari tampilan 75% */
+    /* App Frame - Scale 75% untuk tampilan optimal */
     .app-frame {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 133.33vw; /* 100/0.75 untuk kompensasi scale */
+      height: 133.33vh;
       border: none;
       background: var(--bg-primary);
       z-index: 1;
+      transform: scale(0.75);
+      transform-origin: top left;
     }
     
     /* Install Prompt */
@@ -386,6 +388,36 @@
       50% { opacity: 0.7; }
     }
     
+    /* Back to PKM Button - muncul saat di halaman PUSTU */
+    .back-to-pkm {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 10003;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .back-to-pkm:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    }
+    
+    .back-to-pkm.show {
+      display: flex;
+    }
+    
     /* Safe area for notched devices */
     @supports (padding: env(safe-area-inset-top)) {
       .loading-screen {
@@ -479,6 +511,14 @@
     <span>Offline</span>
   </div>
   
+  <!-- Back to PKM Button -->
+  <button id="backToPkm" class="back-to-pkm" onclick="backToPKM()">
+    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+    <span>Kembali ke PKM</span>
+  </button>
+  
   <!-- Update Banner -->
   <div id="updateBanner" class="update-banner">
     <span>🎉 Versi baru tersedia!</span>
@@ -503,6 +543,7 @@
   </div>
   
   <!-- Main App Frame (Google Apps Script) -->
+  <!-- sandbox mencegah navigasi top-level yang menyebabkan browser bar muncul -->
   <iframe 
     id="appFrame" 
     class="app-frame" 
@@ -510,6 +551,7 @@
     title="Dashboard Kunjungan Rumah"
     allow="clipboard-write"
     loading="eager"
+    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
   ></iframe>
   
   <script>
@@ -757,6 +799,10 @@
         hasParams = true;
         appFrame.src = currentSrc;
         console.log('[App] Loading location:', loc);
+        
+        // Update state dan show back button jika PUSTU
+        currentLocation = loc;
+        setTimeout(updateBackButton, 100); // Delay sedikit agar DOM ready
       }
       
       // Handle view parameter
@@ -769,6 +815,9 @@
     // ============================================
     // PWA NAVIGATION HANDLER (for Pustu navigation)
     // ============================================
+    
+    // State untuk tracking lokasi saat ini
+    let currentLocation = 'pkm'; // 'pkm' atau nama pustu
     
     window.addEventListener('message', function(event) {
       // Handle navigation messages from GAS iframe
@@ -784,14 +833,69 @@
           document.getElementById('loadingScreen').style.display = 'flex';
           document.getElementById('loadingScreen').classList.remove('hidden');
           
-          // Update iframe src
+          // Update iframe src (ini cara yang benar - dari parent, bukan navigasi internal)
           appFrame.src = url;
+          
+          // Track current location dan show back button jika di PUSTU
+          currentLocation = locationId;
+          updateBackButton();
           
           // Update browser URL without reload (for bookmarking)
           if (window.history && window.history.replaceState) {
             var newUrl = window.location.pathname + '?loc=' + encodeURIComponent(locationId);
             window.history.replaceState({location: locationId}, '', newUrl);
           }
+        }
+      }
+      
+      // Handle request to go back to PKM
+      if (event.data && event.data.type === 'pwa-back-to-pkm') {
+        backToPKM();
+      }
+    });
+    
+    // ============================================
+    // BACK TO PKM NAVIGATION
+    // ============================================
+    
+    function updateBackButton() {
+      const backBtn = document.getElementById('backToPkm');
+      if (backBtn) {
+        // Show back button jika bukan di PKM utama
+        if (currentLocation && currentLocation !== 'pkm' && currentLocation !== 'ciwandan') {
+          backBtn.classList.add('show');
+        } else {
+          backBtn.classList.remove('show');
+        }
+      }
+    }
+    
+    function backToPKM() {
+      console.log('[App] Navigating back to PKM Ciwandan');
+      
+      // Show loading
+      updateStatus('Kembali ke PKM Ciwandan...');
+      document.getElementById('loadingScreen').style.display = 'flex';
+      document.getElementById('loadingScreen').classList.remove('hidden');
+      
+      // Reset iframe ke URL PKM utama
+      appFrame.src = CONFIG.GAS_URL;
+      
+      // Update state
+      currentLocation = 'pkm';
+      updateBackButton();
+      
+      // Update browser URL
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({location: 'pkm'}, '', window.location.pathname);
+      }
+    }
+    
+    // Handle browser back button
+    window.addEventListener('popstate', function(event) {
+      if (event.state && event.state.location) {
+        if (event.state.location === 'pkm') {
+          backToPKM();
         }
       }
     });
