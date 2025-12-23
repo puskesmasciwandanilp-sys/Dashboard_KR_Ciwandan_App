@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-  
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+
   <!-- PWA Meta Tags -->
   <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
@@ -15,40 +17,42 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-TileColor" content="#0f172a">
   <meta name="msapplication-config" content="browserconfig.xml">
-  
+
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Dashboard monitoring kunjungan rumah untuk Puskesmas Ciwandan, Kota Cilegon. Pantau data kesehatan ibu hamil, balita, lansia, dan sasaran lainnya secara real-time.">
-  <meta name="keywords" content="puskesmas, ciwandan, cilegon, dashboard, kesehatan, kunjungan rumah, ibu hamil, balita, lansia">
+  <meta name="description"
+    content="Dashboard monitoring kunjungan rumah untuk Puskesmas Ciwandan, Kota Cilegon. Pantau data kesehatan ibu hamil, balita, lansia, dan sasaran lainnya secara real-time.">
+  <meta name="keywords"
+    content="puskesmas, ciwandan, cilegon, dashboard, kesehatan, kunjungan rumah, ibu hamil, balita, lansia">
   <meta name="author" content="Puskesmas Ciwandan">
   <meta name="robots" content="index, follow">
-  
+
   <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://YOUR_GITHUB_USERNAME.github.io/pkm-ciwandan/">
   <meta property="og:title" content="Dashboard Kunjungan Rumah - Puskesmas Ciwandan">
   <meta property="og:description" content="Monitoring data kesehatan real-time untuk Puskesmas Ciwandan">
   <meta property="og:image" content="./screenshots/og-image.png">
-  
+
   <title>Dashboard Kunjungan Rumah - Puskesmas Ciwandan</title>
-  
+
   <!-- PWA Manifest -->
   <link rel="manifest" href="./manifest.json">
-  
+
   <!-- Favicon & Icons -->
   <link rel="icon" type="image/png" sizes="32x32" href="./icons/CIwandan/ios/32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./icons/CIwandan/ios/16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="./icons/CIwandan/ios/180.png">
-  
+
   <!-- Splash Screens for iOS (using main icon as fallback) -->
   <!-- Note: For better iOS splash screens, generate proper splash images -->
-  
+
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     :root {
       --bg-primary: #0f172a;
       --bg-secondary: #1e293b;
@@ -57,7 +61,7 @@
       --accent-blue: #3b82f6;
       --accent-green: #10b981;
     }
-    
+
     @media (prefers-color-scheme: light) {
       :root {
         --bg-primary: #f8fafc;
@@ -66,8 +70,9 @@
         --text-secondary: #64748b;
       }
     }
-    
-    html, body {
+
+    html,
+    body {
       height: 100%;
       width: 100%;
       margin: 0;
@@ -77,7 +82,7 @@
       background: var(--bg-primary);
       color: var(--text-primary);
     }
-    
+
     /* Loading Screen */
     .loading-screen {
       position: fixed;
@@ -90,13 +95,13 @@
       z-index: 9999;
       transition: opacity 0.5s ease, visibility 0.5s ease;
     }
-    
+
     .loading-screen.hidden {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
-    
+
     /* 4 Logos Row */
     .logos-row {
       display: flex;
@@ -106,30 +111,31 @@
       margin-bottom: 32px;
       animation: fadeInDown 0.8s ease;
     }
-    
+
     .logo-img {
       width: 56px;
       height: 56px;
       object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
       transition: transform 0.3s ease;
     }
-    
+
     .logo-img:hover {
       transform: scale(1.1);
     }
-    
+
     @keyframes fadeInDown {
       from {
         opacity: 0;
         transform: translateY(-20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-    
+
     /* Dashboard Badge */
     .dashboard-badge {
       display: inline-flex;
@@ -141,19 +147,24 @@
       margin-bottom: 24px;
       animation: fadeIn 1s ease 0.3s both;
     }
-    
+
     .dashboard-badge span {
       color: var(--accent-green);
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 1px;
     }
-    
+
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
-    
+
     .loading-text {
       font-size: 18px;
       font-weight: 400;
@@ -161,7 +172,7 @@
       margin-bottom: 4px;
       animation: fadeIn 1s ease 0.5s both;
     }
-    
+
     .loading-title-main {
       font-size: 36px;
       font-weight: 700;
@@ -172,7 +183,7 @@
       margin-bottom: 16px;
       animation: fadeIn 1s ease 0.7s both;
     }
-    
+
     .loading-subtitle {
       font-size: 14px;
       color: var(--text-secondary);
@@ -181,7 +192,7 @@
       text-align: center;
       animation: fadeIn 1s ease 0.9s both;
     }
-    
+
     .progress-container {
       width: 200px;
       height: 4px;
@@ -190,7 +201,7 @@
       overflow: hidden;
       margin-bottom: 16px;
     }
-    
+
     .progress-bar {
       height: 100%;
       width: 0%;
@@ -199,24 +210,77 @@
       transition: width 0.3s ease;
       animation: progress 2s ease-in-out infinite;
     }
-    
+
     @keyframes progress {
-      0% { width: 0%; margin-left: 0%; }
-      50% { width: 50%; margin-left: 25%; }
-      100% { width: 0%; margin-left: 100%; }
+      0% {
+        width: 0%;
+        margin-left: 0%;
+      }
+
+      50% {
+        width: 50%;
+        margin-left: 25%;
+      }
+
+      100% {
+        width: 0%;
+        margin-left: 100%;
+      }
     }
-    
+
     .loading-status {
       font-size: 12px;
       color: var(--text-secondary);
     }
-    
+
+    /* Nano AI Mascot - Same design as GAS Dashboard */
+    .nano-mascot {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+      padding: 14px 20px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 16px;
+      animation: fadeIn 1s ease 1.1s both;
+    }
+
+    .nano-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .nano-info {
+      text-align: left;
+    }
+
+    .nano-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #10b981;
+    }
+
+    .nano-role {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
     /* App Frame - Scale 75% untuk tampilan optimal */
     .app-frame {
       position: fixed;
       top: 0;
       left: 0;
-      width: 133.33vw; /* 100/0.75 untuk kompensasi scale */
+      width: 133.33vw;
+      /* 100/0.75 untuk kompensasi scale */
       height: 133.33vh;
       border: none;
       background: var(--bg-primary);
@@ -224,7 +288,7 @@
       transform: scale(0.75);
       transform-origin: top left;
     }
-    
+
     /* Install Prompt */
     .install-prompt {
       position: fixed;
@@ -243,22 +307,23 @@
       max-width: 90%;
       animation: slideUp 0.3s ease;
     }
-    
+
     @keyframes slideUp {
       from {
         opacity: 0;
         transform: translateX(-50%) translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
     }
-    
+
     .install-prompt.show {
       display: flex;
     }
-    
+
     .install-icon {
       width: 48px;
       height: 48px;
@@ -269,33 +334,33 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    
+
     .install-icon svg {
       width: 24px;
       height: 24px;
       fill: white;
     }
-    
+
     .install-content {
       flex: 1;
     }
-    
+
     .install-title {
       font-weight: 600;
       font-size: 14px;
       margin-bottom: 4px;
     }
-    
+
     .install-desc {
       font-size: 12px;
       color: var(--text-secondary);
     }
-    
+
     .install-actions {
       display: flex;
       gap: 8px;
     }
-    
+
     .install-btn {
       padding: 10px 20px;
       border-radius: 10px;
@@ -305,26 +370,26 @@
       border: none;
       transition: all 0.2s;
     }
-    
+
     .install-btn.primary {
       background: linear-gradient(135deg, var(--accent-blue), #6366f1);
       color: white;
     }
-    
+
     .install-btn.primary:hover {
       transform: scale(1.05);
       box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
     }
-    
+
     .install-btn.secondary {
       background: transparent;
       color: var(--text-secondary);
     }
-    
+
     .install-btn.secondary:hover {
       color: var(--text-primary);
     }
-    
+
     /* Update Available Banner */
     .update-banner {
       position: fixed;
@@ -341,11 +406,11 @@
       font-size: 14px;
       z-index: 10001;
     }
-    
+
     .update-banner.show {
       display: flex;
     }
-    
+
     .update-btn {
       background: white;
       color: #059669;
@@ -356,11 +421,11 @@
       cursor: pointer;
       transition: transform 0.2s;
     }
-    
+
     .update-btn:hover {
       transform: scale(1.05);
     }
-    
+
     /* Offline Indicator */
     .offline-indicator {
       position: fixed;
@@ -378,16 +443,23 @@
       z-index: 10002;
       animation: pulse 2s infinite;
     }
-    
+
     .offline-indicator.show {
       display: flex;
     }
-    
+
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
     }
-    
+
     /* Back to PKM Button - muncul saat di halaman PUSTU */
     .back-to-pkm {
       position: fixed;
@@ -408,66 +480,66 @@
       box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
       transition: all 0.3s ease;
     }
-    
+
     .back-to-pkm:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
     }
-    
+
     .back-to-pkm.show {
       display: flex;
     }
-    
+
     /* Safe area for notched devices */
     @supports (padding: env(safe-area-inset-top)) {
       .loading-screen {
         padding-top: env(safe-area-inset-top);
         padding-bottom: env(safe-area-inset-bottom);
       }
-      
+
       .install-prompt {
         bottom: calc(20px + env(safe-area-inset-bottom));
       }
     }
-    
+
     /* Responsive */
     @media (max-width: 480px) {
       .logos-row {
         gap: 12px;
       }
-      
+
       .logo-img {
         width: 44px;
         height: 44px;
       }
-      
+
       .dashboard-badge {
         padding: 6px 16px;
       }
-      
+
       .dashboard-badge span {
         font-size: 10px;
       }
-      
+
       .loading-text {
         font-size: 16px;
       }
-      
+
       .loading-title-main {
         font-size: 28px;
       }
-      
+
       .loading-subtitle {
         font-size: 13px;
         padding: 0 20px;
       }
-      
+
       .install-prompt {
         flex-direction: column;
         text-align: center;
         padding: 20px;
       }
-      
+
       .install-actions {
         width: 100%;
         justify-content: center;
@@ -475,61 +547,76 @@
     }
   </style>
 </head>
+
 <body>
-  <!-- Loading Screen -->
+  <!-- Loading Screen - Synced with GAS Dashboard Welcome Screen -->
   <div id="loadingScreen" class="loading-screen">
     <!-- 4 Logos Row -->
     <div class="logos-row">
-      <img src="./icons/Logo_KEMENKES/android/android-launchericon-96-96.png" alt="Kemenkes" class="logo-img" onerror="this.style.display='none'">
-      <img src="./icons/logo_Banten/android/android-launchericon-96-96.png" alt="Banten" class="logo-img" onerror="this.style.display='none'">
-      <img src="./icons/Logo_Cilegon/android/android-launchericon-96-96.png" alt="Cilegon" class="logo-img" onerror="this.style.display='none'">
-      <img src="./icons/CIwandan/android/android-launchericon-96-96.png" alt="Ciwandan" class="logo-img">
+      <img src="./icons/Logo_KEMENKES/android/android-launchericon-96-96.png" alt="Kemenkes" class="logo-img"
+        onerror="this.src='./icons/Kemenkes-2.png'">
+      <img src="./icons/logo_Banten/android/android-launchericon-96-96.png" alt="Banten" class="logo-img"
+        onerror="this.src='./icons/Coat_of_arms_of_Banten.png'">
+      <img src="./icons/Logo_Cilegon/android/android-launchericon-96-96.png" alt="Cilegon" class="logo-img"
+        onerror="this.src='./icons/Lambang_Kota_Cilegon.png'">
+      <img src="./icons/android/android-launchericon-96-96.png" alt="Ciwandan" class="logo-img"
+        onerror="this.src='./icons/CIwandan.png'">
     </div>
-    
-    <!-- Badge -->
+
+    <!-- Badge - Same as GAS Dashboard -->
     <div class="dashboard-badge">
-      <span>✦ DASHBOARD KESEHATAN</span>
+      <span>✦ DASHBOARD KUNJUNGAN RUMAH</span>
     </div>
-    
+
     <!-- Title -->
     <div class="loading-text">Selamat datang di</div>
     <div class="loading-title-main">PKM Ciwandan</div>
     <div class="loading-subtitle">Memastikan tidak ada warga yang tertinggal<br>dalam pelayanan kesehatan</div>
-    
+
+    <!-- Nano AI Mascot - Same as GAS Dashboard -->
+    <div class="nano-mascot">
+      <div class="nano-avatar">🤖</div>
+      <div class="nano-info">
+        <div class="nano-name">Nano</div>
+        <div class="nano-role">AI Health Assistant</div>
+      </div>
+    </div>
+
     <!-- Progress -->
     <div class="progress-container">
       <div class="progress-bar" id="progressBar"></div>
     </div>
-    <div class="loading-status" id="loadingStatus">Memuat aplikasi...</div>
+    <div class="loading-status" id="loadingStatus">Memuat dashboard...</div>
   </div>
-  
+
   <!-- Offline Indicator -->
   <div id="offlineIndicator" class="offline-indicator">
     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M24 8.98C20.93 5.9 16.69 4 12 4S3.07 5.9 0 8.98L12 21 24 8.98zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07l-1.43 1.43C17.5 8.94 14.86 8 12 8s-5.5.94-7.65 2.5L2.92 9.07z"/>
+      <path
+        d="M24 8.98C20.93 5.9 16.69 4 12 4S3.07 5.9 0 8.98L12 21 24 8.98zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07l-1.43 1.43C17.5 8.94 14.86 8 12 8s-5.5.94-7.65 2.5L2.92 9.07z" />
     </svg>
     <span>Offline</span>
   </div>
-  
+
   <!-- Back to PKM Button -->
   <button id="backToPkm" class="back-to-pkm" onclick="backToPKM()">
     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
     </svg>
     <span>Kembali ke PKM</span>
   </button>
-  
+
   <!-- Update Banner -->
   <div id="updateBanner" class="update-banner">
     <span>🎉 Versi baru tersedia!</span>
     <button class="update-btn" onclick="updateApp()">Update Sekarang</button>
   </div>
-  
+
   <!-- Install Prompt -->
   <div id="installPrompt" class="install-prompt">
     <div class="install-icon">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
       </svg>
     </div>
     <div class="install-content">
@@ -541,62 +628,58 @@
       <button class="install-btn primary" onclick="installApp()">Install</button>
     </div>
   </div>
-  
+
   <!-- Main App Frame (Google Apps Script) -->
   <!-- sandbox mencegah navigasi top-level yang menyebabkan browser bar muncul -->
-  <iframe 
-    id="appFrame" 
-    class="app-frame" 
-    src="https://script.google.com/macros/s/AKfycbygjRlMIasy12-hCl7x9msQBVwzfTjJI445vXdQgcvQzhYdXW91PY3snvD6Z1mgSk58/exec"
-    title="Dashboard Kunjungan Rumah"
-    allow="clipboard-write"
-    loading="eager"
-    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-  ></iframe>
-  
+  <!-- skipWelcome=1 parameter tells GAS to skip its welcome screen since PWA already shows one -->
+  <iframe id="appFrame" class="app-frame"
+    src="https://script.google.com/macros/s/AKfycbygjRlMIasy12-hCl7x9msQBVwzfTjJI445vXdQgcvQzhYdXW91PY3snvD6Z1mgSk58/exec?skipWelcome=1"
+    title="Dashboard Kunjungan Rumah" allow="clipboard-write" loading="eager"
+    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
+
   <script>
     // ============================================
     // PWA INITIALIZATION
     // ============================================
-    
+
     // Configuration
     const CONFIG = {
-      GAS_URL: 'https://script.google.com/macros/s/AKfycbygjRlMIasy12-hCl7x9msQBVwzfTjJI445vXdQgcvQzhYdXW91PY3snvD6Z1mgSk58/exec', // PKM Ciwandan GAS URL
+      GAS_URL: 'https://script.google.com/macros/s/AKfycbygjRlMIasy12-hCl7x9msQBVwzfTjJI445vXdQgcvQzhYdXW91PY3snvD6Z1mgSk58/exec?skipWelcome=1', // PKM Ciwandan GAS URL + skip welcome
       SW_PATH: './sw.js',
       INSTALL_PROMPT_DELAY: 30000, // 30 seconds
       LOADING_TIMEOUT: 45000 // 45 seconds - GAS cold start bisa lambat
     };
-    
+
     // State
     let deferredPrompt = null;
     let serviceWorkerRegistration = null;
-    
+
     // ============================================
     // SERVICE WORKER REGISTRATION
     // ============================================
-    
+
     async function registerServiceWorker() {
       if ('serviceWorker' in navigator) {
         try {
           updateStatus('Mendaftarkan service worker...');
-          
+
           serviceWorkerRegistration = await navigator.serviceWorker.register(CONFIG.SW_PATH, {
             scope: './'
           });
-          
+
           console.log('[App] Service Worker registered:', serviceWorkerRegistration.scope);
-          
+
           // Check for updates
           serviceWorkerRegistration.addEventListener('updatefound', () => {
             const newWorker = serviceWorkerRegistration.installing;
-            
+
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                 showUpdateBanner();
               }
             });
           });
-          
+
           return true;
         } catch (error) {
           console.error('[App] Service Worker registration failed:', error);
@@ -605,18 +688,18 @@
       }
       return false;
     }
-    
+
     // ============================================
     // APP LOADING
     // ============================================
-    
+
     function updateStatus(message) {
       const statusEl = document.getElementById('loadingStatus');
       if (statusEl) {
         statusEl.textContent = message;
       }
     }
-    
+
     function hideLoadingScreen() {
       const loadingScreen = document.getElementById('loadingScreen');
       if (loadingScreen) {
@@ -626,7 +709,7 @@
         }, 500);
       }
     }
-    
+
     function showLoadingError(message) {
       updateStatus('❌ ' + message);
       const progressBar = document.getElementById('progressBar');
@@ -636,21 +719,21 @@
         progressBar.style.width = '100%';
       }
     }
-    
+
     // Handle iframe load
     const appFrame = document.getElementById('appFrame');
     let frameLoaded = false;
-    
+
     appFrame.addEventListener('load', () => {
       frameLoaded = true;
       updateStatus('Aplikasi siap!');
       setTimeout(hideLoadingScreen, 500);
     });
-    
+
     appFrame.addEventListener('error', () => {
       showLoadingError('Gagal memuat aplikasi');
     });
-    
+
     // Loading timeout - tetap sembunyikan loading screen agar iframe terlihat
     setTimeout(() => {
       if (!frameLoaded) {
@@ -659,7 +742,7 @@
         hideLoadingScreen(); // Tetap sembunyikan agar user bisa lihat iframe
       }
     }, CONFIG.LOADING_TIMEOUT);
-    
+
     // Fallback: jika setelah 5 detik iframe sudah punya content, anggap loaded
     setTimeout(() => {
       if (!frameLoaded) {
@@ -678,15 +761,15 @@
         }
       }
     }, 5000);
-    
+
     // ============================================
     // INSTALL PROMPT
     // ============================================
-    
+
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      
+
       // Show install prompt after delay
       setTimeout(() => {
         if (deferredPrompt && !isAppInstalled()) {
@@ -694,36 +777,36 @@
         }
       }, CONFIG.INSTALL_PROMPT_DELAY);
     });
-    
+
     function isAppInstalled() {
       return window.matchMedia('(display-mode: standalone)').matches ||
-             window.navigator.standalone === true ||
-             localStorage.getItem('pwa_installed') === 'true';
+        window.navigator.standalone === true ||
+        localStorage.getItem('pwa_installed') === 'true';
     }
-    
+
     function showInstallPrompt() {
       const prompt = document.getElementById('installPrompt');
       if (prompt && !localStorage.getItem('install_dismissed')) {
         prompt.classList.add('show');
       }
     }
-    
+
     async function installApp() {
       if (!deferredPrompt) return;
-      
+
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      
+
       console.log('[App] Install outcome:', outcome);
-      
+
       if (outcome === 'accepted') {
         localStorage.setItem('pwa_installed', 'true');
       }
-      
+
       deferredPrompt = null;
       dismissInstall();
     }
-    
+
     function dismissInstall() {
       const prompt = document.getElementById('installPrompt');
       if (prompt) {
@@ -731,40 +814,40 @@
         localStorage.setItem('install_dismissed', Date.now().toString());
       }
     }
-    
+
     window.addEventListener('appinstalled', () => {
       console.log('[App] PWA installed successfully');
       localStorage.setItem('pwa_installed', 'true');
       deferredPrompt = null;
     });
-    
+
     // ============================================
     // UPDATE HANDLING
     // ============================================
-    
+
     function showUpdateBanner() {
       const banner = document.getElementById('updateBanner');
       if (banner) {
         banner.classList.add('show');
       }
     }
-    
+
     function updateApp() {
       if (serviceWorkerRegistration && serviceWorkerRegistration.waiting) {
         serviceWorkerRegistration.waiting.postMessage({ action: 'skipWaiting' });
       }
       window.location.reload();
     }
-    
+
     // Listen for controller change
     navigator.serviceWorker?.addEventListener('controllerchange', () => {
       window.location.reload();
     });
-    
+
     // ============================================
     // OFFLINE DETECTION
     // ============================================
-    
+
     function updateOnlineStatus() {
       const indicator = document.getElementById('offlineIndicator');
       if (indicator) {
@@ -775,23 +858,87 @@
         }
       }
     }
-    
+
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
     updateOnlineStatus();
-    
+
+    // ============================================
+    // PWA NAVIGATION HANDLER (v14.1)
+    // Listen for navigation requests from GAS iframe
+    // ============================================
+
+    window.addEventListener('message', function (event) {
+      // Only accept messages from Google Apps Script
+      if (!event.origin.includes('script.google.com')) {
+        return;
+      }
+
+      const data = event.data;
+
+      // Handle navigation requests from GAS
+      if (data && data.type === 'pwa-navigate') {
+        console.log('[PWA] Navigation request:', data);
+
+        const locationId = data.location;
+        const targetUrl = data.url;
+
+        if (targetUrl && appFrame) {
+          // Show brief loading indicator
+          const loadingScreen = document.getElementById('loadingScreen');
+          const loadingStatus = document.getElementById('loadingStatus');
+
+          if (loadingScreen && loadingStatus) {
+            loadingStatus.textContent = 'Memuat ' + (locationId || 'lokasi') + '...';
+            loadingScreen.classList.remove('hidden');
+            loadingScreen.style.display = 'flex';
+          }
+
+          // Update iframe src to navigate (add skipWelcome param)
+          let newUrl = targetUrl;
+          if (newUrl.indexOf('skipWelcome') === -1) {
+            newUrl += (newUrl.indexOf('?') === -1 ? '?' : '&') + 'skipWelcome=1';
+          }
+
+          appFrame.src = newUrl;
+          frameLoaded = false;
+
+          // Update PWA URL (without reload) for back button support
+          const pwaUrl = new URL(window.location.href);
+          pwaUrl.searchParams.set('loc', locationId);
+          history.pushState({ location: locationId }, '', pwaUrl.toString());
+
+          console.log('[PWA] Navigating to:', newUrl);
+        }
+      }
+    });
+
+    // Handle browser back button
+    window.addEventListener('popstate', function (event) {
+      if (event.state && event.state.location) {
+        const locationId = event.state.location;
+        const baseGasUrl = CONFIG.GAS_URL.split('?')[0];
+        const newUrl = baseGasUrl + '?loc=' + encodeURIComponent(locationId) + '&skipWelcome=1';
+
+        if (appFrame) {
+          appFrame.src = newUrl;
+          frameLoaded = false;
+        }
+      }
+    });
+
     // ============================================
     // URL PARAMETERS HANDLING
     // ============================================
-    
+
     function handleURLParams() {
       const params = new URLSearchParams(window.location.search);
       const view = params.get('view');
       const loc = params.get('loc');
-      
+
       let currentSrc = appFrame.src;
       let hasParams = currentSrc.includes('?');
-      
+
       // Handle location parameter (for Pustu navigation)
       if (loc) {
         const separator = hasParams ? '&' : '?';
@@ -799,65 +946,65 @@
         hasParams = true;
         appFrame.src = currentSrc;
         console.log('[App] Loading location:', loc);
-        
+
         // Update state dan show back button jika PUSTU
         currentLocation = loc;
         setTimeout(updateBackButton, 100); // Delay sedikit agar DOM ready
       }
-      
+
       // Handle view parameter
       if (view) {
         const separator = hasParams ? '&' : '?';
         appFrame.src = currentSrc + separator + 'view=' + view;
       }
     }
-    
+
     // ============================================
     // PWA NAVIGATION HANDLER (for Pustu navigation)
     // ============================================
-    
+
     // State untuk tracking lokasi saat ini
     let currentLocation = 'pkm'; // 'pkm' atau nama pustu
-    
-    window.addEventListener('message', function(event) {
+
+    window.addEventListener('message', function (event) {
       // Handle navigation messages from GAS iframe
       if (event.data && event.data.type === 'pwa-navigate') {
         console.log('[App] PWA Navigate:', event.data);
-        
+
         var locationId = event.data.location;
         var url = event.data.url;
-        
+
         if (url && appFrame) {
           // Show loading indicator
           updateStatus('Memuat ' + locationId + '...');
           document.getElementById('loadingScreen').style.display = 'flex';
           document.getElementById('loadingScreen').classList.remove('hidden');
-          
+
           // Update iframe src (ini cara yang benar - dari parent, bukan navigasi internal)
           appFrame.src = url;
-          
+
           // Track current location dan show back button jika di PUSTU
           currentLocation = locationId;
           updateBackButton();
-          
+
           // Update browser URL without reload (for bookmarking)
           if (window.history && window.history.replaceState) {
             var newUrl = window.location.pathname + '?loc=' + encodeURIComponent(locationId);
-            window.history.replaceState({location: locationId}, '', newUrl);
+            window.history.replaceState({ location: locationId }, '', newUrl);
           }
         }
       }
-      
+
       // Handle request to go back to PKM
       if (event.data && event.data.type === 'pwa-back-to-pkm') {
         backToPKM();
       }
     });
-    
+
     // ============================================
     // BACK TO PKM NAVIGATION
     // ============================================
-    
+
     function updateBackButton() {
       const backBtn = document.getElementById('backToPkm');
       if (backBtn) {
@@ -869,61 +1016,61 @@
         }
       }
     }
-    
+
     function backToPKM() {
       console.log('[App] Navigating back to PKM Ciwandan');
-      
+
       // Show loading
       updateStatus('Kembali ke PKM Ciwandan...');
       document.getElementById('loadingScreen').style.display = 'flex';
       document.getElementById('loadingScreen').classList.remove('hidden');
-      
+
       // Reset iframe ke URL PKM utama
       appFrame.src = CONFIG.GAS_URL;
-      
+
       // Update state
       currentLocation = 'pkm';
       updateBackButton();
-      
+
       // Update browser URL
       if (window.history && window.history.replaceState) {
-        window.history.replaceState({location: 'pkm'}, '', window.location.pathname);
+        window.history.replaceState({ location: 'pkm' }, '', window.location.pathname);
       }
     }
-    
+
     // Handle browser back button
-    window.addEventListener('popstate', function(event) {
+    window.addEventListener('popstate', function (event) {
       if (event.state && event.state.location) {
         if (event.state.location === 'pkm') {
           backToPKM();
         }
       }
     });
-    
+
     // ============================================
     // INITIALIZATION
     // ============================================
-    
+
     async function init() {
       console.log('[App] Initializing PWA...');
-      
+
       updateStatus('Mempersiapkan aplikasi...');
-      
+
       // Register service worker
       await registerServiceWorker();
-      
+
       updateStatus('Menghubungkan ke server...');
-      
+
       // Handle URL params
       handleURLParams();
-      
+
       // Check online status
       updateOnlineStatus();
     }
-    
+
     // Start initialization
     init();
   </script>
 </body>
-</html>
 
+</html>
