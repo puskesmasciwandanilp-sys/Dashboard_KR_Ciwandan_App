@@ -83,6 +83,230 @@
       color: var(--text-primary);
     }
 
+    /* ============================================
+       PREMIUM SPLASH SCREEN v14.2
+       Premium app-like initial splash animation
+       ============================================ */
+
+    .splash-screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(160deg, #0a1628 0%, #1a365d 50%, #0f2744 100%);
+      z-index: 99999;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .splash-screen.fade-out {
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+    .splash-logo-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Outer glow ring */
+    .splash-glow-ring {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+      animation: splashPulse 2s ease-in-out infinite;
+    }
+
+    /* Middle ring */
+    .splash-ring {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      animation: splashRingSpin 3s linear infinite;
+    }
+
+    .splash-ring::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      background: #3b82f6;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 20px #3b82f6, 0 0 40px #3b82f6;
+    }
+
+    /* Main logo */
+    .splash-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 24px;
+      filter: drop-shadow(0 8px 32px rgba(59, 130, 246, 0.5));
+      animation: splashLogoAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+        splashLogoFloat 3s ease-in-out infinite 0.8s;
+      transform: scale(0);
+    }
+
+    .splash-text {
+      margin-top: 32px;
+      text-align: center;
+      animation: splashTextFade 0.6s ease 0.4s both;
+    }
+
+    .splash-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.5px;
+      margin: 0;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .splash-subtitle {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 8px;
+    }
+
+    .splash-loader {
+      margin-top: 40px;
+      display: flex;
+      gap: 8px;
+      animation: splashTextFade 0.6s ease 0.6s both;
+    }
+
+    .splash-loader-dot {
+      width: 10px;
+      height: 10px;
+      background: #3b82f6;
+      border-radius: 50%;
+      animation: splashDotBounce 1.4s ease-in-out infinite;
+    }
+
+    .splash-loader-dot:nth-child(2) {
+      animation-delay: 0.16s;
+    }
+
+    .splash-loader-dot:nth-child(3) {
+      animation-delay: 0.32s;
+    }
+
+    @keyframes splashPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes splashRingSpin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes splashLogoAppear {
+      from {
+        transform: scale(0) rotate(-10deg);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes splashLogoFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes splashTextFade {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes splashDotBounce {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0.6);
+        opacity: 0.5;
+      }
+
+      40% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Tablet/Desktop - Larger splash */
+    @media (min-width: 768px) {
+      .splash-logo {
+        width: 160px;
+        height: 160px;
+        border-radius: 32px;
+      }
+
+      .splash-glow-ring {
+        width: 280px;
+        height: 280px;
+      }
+
+      .splash-ring {
+        width: 220px;
+        height: 220px;
+      }
+
+      .splash-title {
+        font-size: 36px;
+      }
+
+      .splash-subtitle {
+        font-size: 16px;
+      }
+    }
+
     /* Loading Screen */
     .loading-screen {
       position: fixed;
@@ -549,17 +773,43 @@
 </head>
 
 <body>
-  <!-- Loading Screen - Synced with GAS Dashboard Welcome Screen -->
-  <div id="loadingScreen" class="loading-screen">
+  <!-- ============================================
+       PREMIUM SPLASH SCREEN v14.2
+       Shows Ciwandan logo with animation first
+       ============================================ -->
+  <div id="splashScreen" class="splash-screen">
+    <div class="splash-logo-container">
+      <div class="splash-glow-ring"></div>
+      <div class="splash-ring"></div>
+      <img src="https://i.ibb.co.com/fVzysNX6/CIwandan.png" alt="PKM Ciwandan" class="splash-logo"
+        onerror="this.src='./icons/CIwandan.png'">
+    </div>
+    <div class="splash-text">
+      <h1 class="splash-title">PKM Ciwandan</h1>
+      <p class="splash-subtitle">Dashboard Kunjungan Rumah</p>
+    </div>
+    <div class="splash-loader">
+      <div class="splash-loader-dot"></div>
+      <div class="splash-loader-dot"></div>
+      <div class="splash-loader-dot"></div>
+    </div>
+  </div>
+
+  <!-- Loading Screen - Shows after splash -->
+  <div id="loadingScreen" class="loading-screen hidden">
     <!-- 4 Logos Row -->
     <div class="logos-row">
-      <img src="./icons/Logo_KEMENKES/android/android-launchericon-96-96.png" alt="Kemenkes" class="logo-img"
+      <!-- Kemenkes - imgbb -->
+      <img src="https://i.ibb.co.com/Mx8mp0yr/Kemenkes-2.png" alt="Kemenkes" class="logo-img"
         onerror="this.src='./icons/Kemenkes-2.png'">
-      <img src="./icons/logo_Banten/android/android-launchericon-96-96.png" alt="Banten" class="logo-img"
-        onerror="this.src='./icons/Coat_of_arms_of_Banten.png'">
-      <img src="./icons/Logo_Cilegon/android/android-launchericon-96-96.png" alt="Cilegon" class="logo-img"
-        onerror="this.src='./icons/Lambang_Kota_Cilegon.png'">
-      <img src="./icons/android/android-launchericon-96-96.png" alt="Ciwandan" class="logo-img"
+      <!-- Banten - Wikipedia -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Coat_of_arms_of_Banten.png" alt="Banten"
+        class="logo-img" onerror="this.src='./icons/Coat_of_arms_of_Banten.png'">
+      <!-- Cilegon - Wikipedia -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Lambang_Kota_Cilegon.png" alt="Cilegon"
+        class="logo-img" onerror="this.src='./icons/Lambang_Kota_Cilegon.png'">
+      <!-- Ciwandan - imgbb -->
+      <img src="https://i.ibb.co.com/fVzysNX6/CIwandan.png" alt="Ciwandan" class="logo-img"
         onerror="this.src='./icons/CIwandan.png'">
     </div>
 
@@ -639,20 +889,65 @@
 
   <script>
     // ============================================
-    // PWA INITIALIZATION
+    // PWA INITIALIZATION v14.2
     // ============================================
 
     // Configuration
     const CONFIG = {
-      GAS_URL: 'https://script.google.com/macros/s/AKfycbygjRlMIasy12-hCl7x9msQBVwzfTjJI445vXdQgcvQzhYdXW91PY3snvD6Z1mgSk58/exec?skipWelcome=1', // PKM Ciwandan GAS URL + skip welcome
+      GAS_URL: 'https://script.google.com/macros/s/AKfycbygjRlMIasy12-hCl7x9msQBVwzfTjJI445vXdQgcvQzhYdXW91PY3snvD6Z1mgSk58/exec?skipWelcome=1',
       SW_PATH: './sw.js',
-      INSTALL_PROMPT_DELAY: 30000, // 30 seconds
-      LOADING_TIMEOUT: 45000 // 45 seconds - GAS cold start bisa lambat
+      INSTALL_PROMPT_DELAY: 30000,
+      LOADING_TIMEOUT: 45000,
+      SPLASH_DURATION: 1500 // 1.5 seconds for splash screen
     };
 
     // State
     let deferredPrompt = null;
     let serviceWorkerRegistration = null;
+    let frameLoaded = false;
+
+    // ============================================
+    // SPLASH SCREEN CONTROLLER v14.2
+    // ============================================
+
+    const splashScreen = document.getElementById('splashScreen');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const appFrame = document.getElementById('appFrame');
+
+    // Start preloading iframe immediately (reduces white screen time)
+    if (appFrame) {
+      appFrame.style.visibility = 'hidden';
+      console.log('[Splash] Starting iframe preload...');
+    }
+
+    // Transition splash → loading → app
+    function transitionFromSplash() {
+      if (!splashScreen || !loadingScreen) return;
+
+      // Fade out splash
+      splashScreen.classList.add('fade-out');
+
+      // Show loading screen
+      setTimeout(() => {
+        loadingScreen.classList.remove('hidden');
+
+        // Remove splash from DOM after transition
+        setTimeout(() => {
+          splashScreen.style.display = 'none';
+        }, 600);
+      }, 300);
+    }
+
+    // Auto-transition after splash duration
+    setTimeout(transitionFromSplash, CONFIG.SPLASH_DURATION);
+
+    // Check if iframe is already loading
+    if (appFrame) {
+      appFrame.addEventListener('load', function () {
+        console.log('[Splash] Iframe preloaded during splash');
+        frameLoaded = true;
+      });
+    }
 
     // ============================================
     // SERVICE WORKER REGISTRATION
@@ -720,12 +1015,10 @@
       }
     }
 
-    // Handle iframe load
-    const appFrame = document.getElementById('appFrame');
-    let frameLoaded = false;
-
+    // Handle iframe load (uses appFrame and frameLoaded from splash controller)
     appFrame.addEventListener('load', () => {
       frameLoaded = true;
+      appFrame.style.visibility = 'visible'; // Show iframe after load
       updateStatus('Aplikasi siap!');
       setTimeout(hideLoadingScreen, 500);
     });
