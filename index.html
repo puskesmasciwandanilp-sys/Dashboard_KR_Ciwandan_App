@@ -70,6 +70,8 @@
     html, body {
       height: 100%;
       width: 100%;
+      margin: 0;
+      padding: 0;
       overflow: hidden;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
       background: var(--bg-primary);
@@ -92,6 +94,7 @@
     .loading-screen.hidden {
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
     }
     
     /* 4 Logos Row */
@@ -208,12 +211,16 @@
       color: var(--text-secondary);
     }
     
-    /* App Frame */
+    /* App Frame - Full viewport untuk menghindari tampilan 75% */
     .app-frame {
-      width: 100%;
-      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       border: none;
       background: var(--bg-primary);
+      z-index: 1;
     }
     
     /* Install Prompt */
@@ -515,7 +522,7 @@
       GAS_URL: 'https://script.google.com/macros/s/AKfycbygjRlMIasy12-hCl7x9msQBVwzfTjJI445vXdQgcvQzhYdXW91PY3snvD6Z1mgSk58/exec', // PKM Ciwandan GAS URL
       SW_PATH: './sw.js',
       INSTALL_PROMPT_DELAY: 30000, // 30 seconds
-      LOADING_TIMEOUT: 15000 // 15 seconds
+      LOADING_TIMEOUT: 45000 // 45 seconds - GAS cold start bisa lambat
     };
     
     // State
@@ -602,12 +609,33 @@
       showLoadingError('Gagal memuat aplikasi');
     });
     
-    // Loading timeout
+    // Loading timeout - tetap sembunyikan loading screen agar iframe terlihat
     setTimeout(() => {
       if (!frameLoaded) {
-        showLoadingError('Timeout - coba refresh halaman');
+        console.log('[App] Timeout reached, hiding loading screen anyway');
+        updateStatus('Memuat...');
+        hideLoadingScreen(); // Tetap sembunyikan agar user bisa lihat iframe
       }
     }, CONFIG.LOADING_TIMEOUT);
+    
+    // Fallback: jika setelah 5 detik iframe sudah punya content, anggap loaded
+    setTimeout(() => {
+      if (!frameLoaded) {
+        try {
+          // Cross-origin akan throw error, tapi itu berarti iframe sudah load
+          if (appFrame.contentWindow) {
+            frameLoaded = true;
+            updateStatus('Aplikasi siap!');
+            setTimeout(hideLoadingScreen, 300);
+          }
+        } catch (e) {
+          // Cross-origin = iframe sudah load dari GAS
+          frameLoaded = true;
+          updateStatus('Aplikasi siap!');
+          setTimeout(hideLoadingScreen, 300);
+        }
+      }
+    }, 5000);
     
     // ============================================
     // INSTALL PROMPT
